@@ -1,7 +1,10 @@
 package com.example.myapp.presentation.main
 
+import android.content.ClipData
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.ClipboardManager
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -9,13 +12,18 @@ import android.widget.AdapterView
 import android.widget.Toast
 import androidx.core.view.isEmpty
 import androidx.core.widget.addTextChangedListener
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.example.myapp.R
 import com.example.myapp.data.CipherModel
 import com.example.myapp.data.LangEnum
 import com.example.myapp.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import org.w3c.dom.Text
 
 @AndroidEntryPoint
@@ -36,15 +44,34 @@ class MainActivity : AppCompatActivity() {
             validateInputs()
         }
 
+        binding.copyIv.setOnClickListener {
+            copyToClipboard(binding.result.text.toString())
+        }
 
-        viewModel.textLiveData.observe(this, Observer { result ->
-            binding.result.text = result
-        })
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.textStateFlow.collect { result ->
+                    binding.result.text = result
+                }
+            }
+        }
 
 
         hideErrorOnStartTyping()
 
 
+    }
+
+    private fun copyToClipboard(text: String) {
+        val clipboardManager =
+            getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
+
+        val clipData = ClipData.newPlainText("Text", text)
+
+        clipboardManager.setPrimaryClip(clipData)
+
+        Toast.makeText(this@MainActivity, "Text copied", Toast.LENGTH_SHORT).show()
     }
 
     private fun hideErrorOnStartTyping() {
@@ -94,7 +121,7 @@ class MainActivity : AppCompatActivity() {
         } else if (binding.shiftEt.text?.isEmpty() == true) {
             binding.tiShiftLayout.error = getString(R.string.error_text_or_shift)
 
-        } else if (binding.shiftEt.text.toString().toInt() >= 32) {
+        } else if (binding.shiftEt.text.toString().toInt() >= 33) {
             binding.tiShiftLayout.error = getString(R.string.error_shift_exceeded_max_value)
         } else {
             chooseType()

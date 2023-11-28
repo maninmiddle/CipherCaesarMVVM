@@ -44,10 +44,14 @@ dependencies {
     val currentLifecycleVersion = "2.6.2"
 
 
+    // coroutine
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     // viewModel && liveData && lifecycle
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$currentLifecycleVersion")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$currentLifecycleVersion")
     implementation("androidx.lifecycle:lifecycle-common-java8:$currentLifecycleVersion")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
 
     // dagger && hilt
     kapt("com.google.dagger:dagger-compiler:2.48.1")

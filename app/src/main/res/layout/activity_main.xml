@@ -72,11 +72,28 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/encryptBtn"
-        android:layout_width="match_parent"
+        android:layout_width="280dp"
         android:layout_height="60dp"
         android:layout_margin="20dp"
         android:text="@string/decrypt"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/langSpinner" />
+
+    <ImageView
+        android:id="@+id/copyIv"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="20dp"
+        android:adjustViewBounds="true"
+        android:clickable="true"
+        android:contentDescription="@string/copy"
+        android:focusable="true"
+        android:foreground="@drawable/image_selector"
+        android:src="@drawable/copy_icon"
+        app:layout_constraintBottom_toBottomOf="@id/encryptBtn"
+        app:layout_constraintStart_toEndOf="@id/encryptBtn"
+        app:layout_constraintTop_toTopOf="@id/encryptBtn" />
+
 
     <TextView
         android:id="@+id/result"
