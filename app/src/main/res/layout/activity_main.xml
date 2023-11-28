@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.main.MainActivity">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tiTextLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textEt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/input_text"
+            android:imeOptions="actionNext"
+            android:inputType="textImeMultiLine"
+            android:lines="1"
+            android:maxLength="100"
+            android:maxLines="1"
+            android:textColor="@color/white" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tiShiftLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="@id/tiTextLayout"
+        app:layout_constraintTop_toBottomOf="@id/tiTextLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/shiftEt"
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            android:hint="@string/input_shift"
+            android:imeOptions="actionDone"
+            android:inputType="number"
+            android:textColor="@color/white" />
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Spinner
+        android:id="@+id/typeSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:entries="@array/types"
+        app:layout_constraintStart_toEndOf="@id/tiShiftLayout"
+        app:layout_constraintTop_toTopOf="@id/tiShiftLayout" />
+
+    <Spinner
+        android:id="@+id/langSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:entries="@array/languages"
+        app:layout_constraintStart_toStartOf="@id/tiShiftLayout"
+        app:layout_constraintTop_toBottomOf="@id/tiShiftLayout" />
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/encryptBtn"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_margin="20dp"
+        android:text="@string/decrypt"
+        app:layout_constraintTop_toBottomOf="@id/langSpinner" />
+
+    <TextView
+        android:id="@+id/result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Result"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/encryptBtn" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
